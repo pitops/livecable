@@ -33,6 +33,10 @@ module.exports = (app, pathToWatch) => {
 
   function injectCode () {
     return function (req, res, next) {
+      if (path.extname(req.url) === '' && req.url !== '/') {
+        next()
+      }
+
       const injectCandidates = [new RegExp('</body>', 'i'), new RegExp('</svg>'), new RegExp('</head>', 'i')]
       const reqpath = url.parse(req.url).pathname === '/' ? '/index.html' : url.parse(req.url).pathname
       let injectTag = null
@@ -75,7 +79,7 @@ module.exports = (app, pathToWatch) => {
         }
       }
 
-      send(req, reqpath, {root: `${process.cwd()}/static`})
+      send(req, reqpath, {root: pathToWatch})
         .on('error', error)
         .on('directory', directory)
         .on('file', file)
@@ -85,7 +89,5 @@ module.exports = (app, pathToWatch) => {
 
   }
 
-  return app
-    .use(injectCode())
-    .use(serveIndex(pathToWatch, {icons: true}))
+  return app.use(injectCode())
 }
