@@ -21,7 +21,6 @@ module.exports = (app, pathToWatch, socketAddress = 'livecable') => {
         return
       }
 
-
       wss
         .clients
         .forEach(client => client.send(path.extname(changePath) === '.css' ? 'stylesReload' : 'fullReload'))
@@ -84,7 +83,6 @@ module.exports = (app, pathToWatch, socketAddress = 'livecable') => {
         .on('stream', inject)
         .pipe(res)
     }
-
   }
 
   return app.use(injectCode())
