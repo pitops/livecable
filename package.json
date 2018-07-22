@@ -1,6 +1,6 @@
 {
   "name": "livewire",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A small browser agnostic live-reload library that does not require manual client-side code.",
   "main": "index.js",
   "scripts": {
