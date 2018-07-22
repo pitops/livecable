@@ -1,6 +1,6 @@
 const IP = module.exports
 
-IP.payload = () => `
+IP.payload = (socketAddress) => `
 <!-- Code injected by livewire -->
 <script type="text/javascript">
 	// <![CDATA[  <-- For SVG support
@@ -21,7 +21,7 @@ IP.payload = () => `
 				}
 			}
 			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://'
-			var address = protocol + window.location.host + window.location.pathname + 'echo'
+			var address = protocol + window.location.host + window.location.pathname + 'SOCKET_ADDRESS'
 			var socket = new WebSocket(address)
 			socket.onmessage = function(msg) {
 				if (msg.data == 'fullReload') window.location.reload()
@@ -32,4 +32,4 @@ IP.payload = () => `
 	}
 	// ]]>
 </script>
-`
+`.replace('SOCKET_ADDRESS', `${socketAddress}`)
