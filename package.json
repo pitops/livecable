@@ -4,7 +4,7 @@
   "description": "A small browser agnostic live-reload library that does not require manual client-side code.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "SERVER=true node index.js"
   },
   "keywords": [
     "live-reload",

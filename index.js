@@ -1,7 +1,9 @@
 const livecable = require('./livecable')
 
 if (!process.env.SERVER) {
-  return livecable
+  module.exports = livecable
+
+  return
 }
 
 const express = require('express')

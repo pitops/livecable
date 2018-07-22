@@ -11,7 +11,7 @@ module.exports = (app, pathToWatch, socketAddress = 'livecable') => {
   const wss = expressWs.getWss()
 
   app.ws('/' + socketAddress, ws => {
-    console.log('ws', 'Client connected')
+    // console.log('ws', 'Client connected')
   })
 
   chokidar
