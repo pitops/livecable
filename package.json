@@ -9,7 +9,10 @@
   "keywords": [
     "live-reload",
     "nodejs",
-    "browser-agnostic"
+    "browser-agnostic",
+    "server",
+    "tool",
+    "front-end"
   ],
   "author": "Petros Kyriakou",
   "license": "MIT",
