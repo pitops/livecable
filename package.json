@@ -1,6 +1,6 @@
 {
   "name": "livecable",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A small browser agnostic live-reload library that does not require manual client-side code.",
   "main": "index.js",
   "scripts": {
