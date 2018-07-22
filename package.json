@@ -4,7 +4,7 @@
   "description": "A small browser agnostic live-reload library that does not require manual client-side code.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./livewire_dev.js"
   },
   "keywords": [
     "live-reload",
