@@ -6,6 +6,14 @@
   "scripts": {
     "start": "SERVER=true node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pitops/livecable.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pitops/livecable/issues"
+  },
+  "homepage": "https://github.com/pitops/livecable#readme",
   "keywords": [
     "live-reload",
     "nodejs",
