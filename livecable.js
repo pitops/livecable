@@ -6,8 +6,6 @@ module.exports = (app, opts) => {
   const ws = require('express-ws')
   const es = require('event-stream')
   const chokidar = require('chokidar')
-  var parseUrl = require('parseurl')
-
 
   const expressWs = ws(app)
   const wss = expressWs.getWss()
