@@ -6,11 +6,18 @@ module.exports = (app, opts) => {
   const ws = require('express-ws')
   const es = require('event-stream')
   const chokidar = require('chokidar')
+  var parseUrl = require('parseurl')
+
 
   const expressWs = ws(app)
   const wss = expressWs.getWss()
 
-  opts = Object.assign({pathToWatch: `${process.cwd()}/static`, entryPointFile: 'index.html', SPA: false, socketAddress: 'livecable'}, opts)
+  opts = Object.assign({
+    pathToWatch: `${process.cwd()}/static`,
+    entryPointFile: 'index.html',
+    SPA: false,
+    socketAddress: 'livecable'
+  }, opts)
 
   app.ws('/' + opts.socketAddress, ws => {
     // console.log('ws', 'Client connected')
@@ -30,13 +37,16 @@ module.exports = (app, opts) => {
 
   const INJECTED_CODE = require('./injection_payload.js').payload(opts.socketAddress)
 
-  function injectCodeHandler (req, res, next) {
-    if (path.extname(req.url) === '' && req.url !== '/') {
-      next()
+  async function injectCodeHandler (req, res, next) {
+    const isDirectory = await filePathExists(req.url)
+
+    if (path.extname(req.url) === '' && !req.url.endsWith('/') && !isDirectory) {
+      console.log('entered')
+      // return next()
     }
 
     const injectCandidates = [new RegExp('</body>', 'i'), new RegExp('</svg>'), new RegExp('</head>', 'i')]
-    const reqpath = url.parse(req.url).pathname === '/' ? `/${opts.entryPointFile}` : url.parse(req.url).pathname
+    const reqpath = url.parse(req.url).pathname === '/' ? `${req.url}${opts.entryPointFile}` : url.parse(req.url).pathname
     let injectTag = null
 
     function error (err) {
@@ -84,6 +94,21 @@ module.exports = (app, opts) => {
       .on('stream', inject)
       .pipe(res)
 
+  }
+
+  function filePathExists (filePath) {
+    return new Promise((resolve, reject) => {
+      fs.stat(opts.pathToWatch + filePath, (err, stats) => {
+        if (err && err.code === 'ENOENT') {
+          return resolve(false)
+        } else if (err) {
+          return reject(err)
+        }
+        if (stats.isFile() || stats.isDirectory()) {
+          return resolve(true)
+        }
+      })
+    })
   }
 
   return app.use(injectCodeHandler)

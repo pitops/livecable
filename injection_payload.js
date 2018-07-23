@@ -1,7 +1,7 @@
 const IP = module.exports
 
 IP.payload = (socketAddress) => `
-<!-- Code injected by livewire -->
+<!-- Code injected by livecable -->
 <script type="text/javascript">
 	// <![CDATA[  <-- For SVG support
 	if ('WebSocket' in window) {
@@ -21,11 +21,14 @@ IP.payload = (socketAddress) => `
 				}
 			}
 			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://'
-			var address = protocol + window.location.host + window.location.pathname + 'SOCKET_ADDRESS'
+			var address = protocol + window.location.host + '/SOCKET_ADDRESS'
 			var socket = new WebSocket(address)
 			socket.onmessage = function(msg) {
 				if (msg.data == 'fullReload') window.location.reload()
 				else if (msg.data == 'stylesReload') refreshCSS()
+			}
+			socket.onclose = function() {
+				console.log('Live reload deactivated.')
 			}
 			console.log('Live reload enabled.')
 		})()
