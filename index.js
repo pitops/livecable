@@ -1,6 +1,6 @@
 const livecable = require('./livecable')
 
-if (!process.env.SERVER) {
+if (module.parent) {
   module.exports = livecable
 
   return
