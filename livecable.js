@@ -41,8 +41,7 @@ module.exports = (app, opts) => {
     const isDirectory = await filePathExists(req.url)
 
     if (path.extname(req.url) === '' && !req.url.endsWith('/') && !isDirectory) {
-      console.log('entered')
-      // return next()
+      return next()
     }
 
     const injectCandidates = [new RegExp('</body>', 'i'), new RegExp('</svg>'), new RegExp('</head>', 'i')]
