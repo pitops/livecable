@@ -33,6 +33,10 @@ livecable(app, {
 
 ```
 
+### Single Page Applications
+
+Livecable has experimental support for single page applications. Please refer to the configuration options on how to enable this.
+
 ### How it works
 
 Livecable is built on the idea that the fetched page from the browser does not need user interaction to add client-side code. 
@@ -60,6 +64,12 @@ This option tells livecable what the default entryPoint in the `pathToWatch` dir
 `type`: String
     
 If your app already connects to a websocket address and for coincidence the socket path ends in `livecable`, you can change it here to avoid conflicts. Default is `livecable` e.g. `ws://localhost:8080/livecable`
+
+**spa**
+
+`type`: Boolean
+    
+If you are working with a single-page application then you need to enable this. Default `false`
 
 ### Contribution
 
