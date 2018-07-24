@@ -38,12 +38,19 @@ module.exports = (app, opts) => {
   async function injectCodeHandler (req, res, next) {
     const isDirectory = await filePathExists(req.url)
 
-    if (path.extname(req.url) === '' && !req.url.endsWith('/') && !isDirectory) {
+    if (path.extname(req.url) === '' && !req.url.endsWith('/') && !isDirectory && !opts.SPA) {
       return next()
     }
 
     const injectCandidates = [new RegExp('</body>', 'i'), new RegExp('</svg>'), new RegExp('</head>', 'i')]
-    const reqpath = url.parse(req.url).pathname === '/' ? `${req.url}${opts.entryPointFile}` : url.parse(req.url).pathname
+
+    let reqpath
+    if (opts.SPA && path.extname(req.url) === '') {
+      reqpath = `/${opts.entryPointFile}`
+    } else {
+      reqpath = url.parse(req.url).pathname === '/' ? `${req.url}${opts.entryPointFile}` : url.parse(req.url).pathname
+    }
+
     let injectTag = null
 
     function error (err) {
