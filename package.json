@@ -3,8 +3,12 @@
   "version": "0.0.12",
   "description": "A small browser agnostic live-reload library that does not require manual client-side code.",
   "main": "index.js",
+  "bin": {
+    "livecable": "bin/index.js"
+  },
   "scripts": {
-    "start": "node index.js"
+    "start": "livecable --path static --index index.html",
+    "lint": "eslint ./src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +33,15 @@
     "event-stream": "^3.3.4",
     "express": "^4.16.3",
     "express-ws": "^4.0.0",
+    "minimist": "^1.2.0",
     "send": "^0.16.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0"
   }
 }

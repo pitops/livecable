@@ -2,40 +2,46 @@
 
 A small browser agnostic live-reload library that does not require manual client-side code
 
-### Getting started
+## install 
+```bash
+npm install -g livecable
+```
 
-#### Standalone
+## Standalone
 
-You can either use this as a standalone server by cloning this repo and run the command `npm start`. Then just replace files inside static folder and you are good to go.
+```bash
+livecable --port 9999 --path ./static --index index.html --socket livecable
+```
 
-#### NPM Package
+## NPM Package
 
 OR you can install livecable as a package through npm. **Livecable at the moment works only with ExpressJS**
 
 `npm install --save-dev livecable`
 
-##### Sample
+## Sample
 
 Below you can find the most minimal setup needed for livecable to work. For a list of options check the configuration section below.
 
 ```javascript
-
+const path = require('path')
 const express = require('express')
 const livecable = require('livecable')
 
 const app = express()
 
 livecable(app, {
-  pathToWatch: `${process.cwd()}/static`
+   pathToWatch: path.resolve(__dirname, 'static'),
+   socketAddress: 'livecable',
+   entryPointFile: 'index.html'
 })
 
-... rest of your code
-
+// rest of your code
 ```
 
 ### Single Page Applications
 
-Livecable has experimental support for single page applications. Please refer to the configuration options on how to enable this.
+to enable single page applications just define `entryPointFile` or `--index` file in cli
 
 ### How it works
 
@@ -65,15 +71,6 @@ This option tells livecable what the default entryPoint in the `pathToWatch` dir
     
 If your app already connects to a websocket address and for coincidence the socket path ends in `livecable`, you can change it here to avoid conflicts. Default is `livecable` e.g. `ws://localhost:8080/livecable`
 
-**spa**
-
-`type`: Boolean
-    
-If you are working with a single-page application then you need to enable this. Default `false`
-
 ### Contribution
 
 Feel free to open up issues and make pull requests.
-
-
-
