@@ -60,7 +60,7 @@ async function injectCodeHandler (opts, req, res, next) {
   const file = await isFile(opts.pathToWatch, pathname)
   const exists = dir || file
 
-  if (!exists && !opts.indexFile) {
+  if (!exists && !opts.entryPointFile) {
     return next()
   }
 
