@@ -1,5 +1,7 @@
 # livecable
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/pitops/livecable.svg)](https://greenkeeper.io/)
+
 A small browser agnostic live-reload library that does not require manual client-side code
 
 ## install 
